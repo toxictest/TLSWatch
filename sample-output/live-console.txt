@@ -1,0 +1,64 @@
+
+  ┌──────────────────────────────────────────────────────┐
+  │  TLSWatch v1.0.0                                      │
+  │  SSL/TLS Configuration & Certificate Lifecycle  │
+  └──────────────────────────────────────────────────────┘
+  Free & standalone. openssl + coreutils. No API keys.
+
+
+Stage 0/5 - Dependency verification
+  ✔ openssl      present
+  ✔ timeout      present
+  ✔ awk          present
+  ✔ sed          present
+  ✔ date         present
+  ✔ sort         present
+  ✔ grep         present
+  ✔ tr           present
+  ✔ cut          present
+  ✔ head         present
+  ✔ tail         present
+  ✔ cat          present
+  ✔ wc           present
+  ✔ find         present
+  ✔ paste        present
+  ✔ mktemp       present
+  ✔ mkdir        present
+  ✔ chmod        present
+  ✔ cp           present
+  ✔ mv           present
+  ✔ rm           present
+  ✔ nc           absent (optional - reachability inferred from the TLS handshake)
+  openssl: OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)
+  note: this OpenSSL cannot test SSLv2 (option removed) - reported as untestable
+  note: this OpenSSL cannot test SSLv3 (option removed) - reported as untestable
+[11:26:57] OK   Dependencies satisfied
+
+Stage 1/5 - Target preparation
+[11:26:57] OK   1 endpoint(s) queued - target: example.com
+
+Stage 2/5 - Parallel TLS audit
+[11:26:58] OK   1 endpoint(s) audited
+
+Stage 3/5 - TLS posture table
+
+  ENDPOINT                           PORT   VERDICT     DAYS    PROTOCOL  CHAIN NOTES
+  ----------------------------------------------------------------------------------------------
+  example.com                        443    WARNING     69      modern    4    -
+  ----------------------------------------------------------------------------------------------
+
+Stage 4/5 - Report generation
+[11:26:58] OK   CSV summary : sample-output/example.com/tls_audit_summary.csv
+[11:26:58] OK   Full report : sample-output/example.com/tls_full_report.txt
+
+Stage 5/5 - Summary
+
+  Audit summary
+    Target                 example.com
+    Verdict                WARNING
+    Endpoints              1
+    Checks                 12 pass  10 warning  0 vulnerable  3 info
+    Duration               00:00:01
+    CSV                    sample-output/example.com/tls_audit_summary.csv
+    Report                 sample-output/example.com/tls_full_report.txt
+

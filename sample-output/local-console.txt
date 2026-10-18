@@ -1,0 +1,65 @@
+
+  ┌──────────────────────────────────────────────────────┐
+  │  TLSWatch v1.0.0                                      │
+  │  SSL/TLS Configuration & Certificate Lifecycle  │
+  └──────────────────────────────────────────────────────┘
+  Free & standalone. openssl + coreutils. No API keys.
+
+
+Stage 0/5 - Dependency verification
+  ✔ openssl      present
+  ✔ timeout      present
+  ✔ awk          present
+  ✔ sed          present
+  ✔ date         present
+  ✔ sort         present
+  ✔ grep         present
+  ✔ tr           present
+  ✔ cut          present
+  ✔ head         present
+  ✔ tail         present
+  ✔ cat          present
+  ✔ wc           present
+  ✔ find         present
+  ✔ paste        present
+  ✔ mktemp       present
+  ✔ mkdir        present
+  ✔ chmod        present
+  ✔ cp           present
+  ✔ mv           present
+  ✔ rm           present
+  ✔ nc           absent (optional - reachability inferred from the TLS handshake)
+  openssl: OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)
+  note: this OpenSSL cannot test SSLv2 (option removed) - reported as untestable
+  note: this OpenSSL cannot test SSLv3 (option removed) - reported as untestable
+[11:26:31] OK   Dependencies satisfied
+
+Stage 1/5 - Target preparation
+[11:26:31] OK   1 endpoint(s) queued - target: localhost
+
+Stage 2/5 - Parallel TLS audit
+[11:26:31] OK   1 endpoint(s) audited
+
+Stage 3/5 - TLS posture table
+
+  ENDPOINT                           PORT   VERDICT     DAYS    PROTOCOL  CHAIN NOTES
+  ----------------------------------------------------------------------------------------------
+  localhost                          19443  VULNERABLE  0       modern    1    expired
+  ----------------------------------------------------------------------------------------------
+
+Stage 4/5 - Report generation
+[11:26:31] OK   CSV summary : sample-output/local-test/localhost/tls_audit_summary.csv
+[11:26:31] OK   Full report : sample-output/local-test/localhost/tls_full_report.txt
+[11:26:31] OK   Timestamped  : sample-output/local-test/localhost/tls_full_report_20261017_112631.txt
+
+Stage 5/5 - Summary
+
+  Audit summary
+    Target                 localhost
+    Verdict                VULNERABLE
+    Endpoints              1
+    Checks                 9 pass  11 warning  2 vulnerable  3 info
+    Duration               00:00:00
+    CSV                    sample-output/local-test/localhost/tls_audit_summary.csv
+    Report                 sample-output/local-test/localhost/tls_full_report.txt
+

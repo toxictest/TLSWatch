@@ -1,0 +1,80 @@
+================================================================================
+ TLSWatch v1.0.0 - SSL/TLS Configuration & Certificate Lifecycle Audit
+================================================================================
+ Generated    : 2026-10-17T11:26:58Z
+ Target       : example.com
+ Endpoints    : 1
+ Alert window : 30 day(s) before expiry
+ Duration     : 00:00:01
+ Verdict      : WARNING
+ Checks       : 12 pass, 10 warning, 0 vulnerable, 3 info
+================================================================================
+
+
+--------------------------------------------------------------------------------
+ ENDPOINT : example.com:443
+ VERDICT  : WARNING
+--------------------------------------------------------------------------------
+
+  Technical detail
+    host                   example.com
+    port                   443
+    subject                CN=example.com
+    issuer                 C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 3
+    cn                     example.com
+    san                    example.com,*.example.com
+    not_before             Sep 26 22:49:11 2026 GMT
+    not_after              Dec 25 22:56:35 2026 GMT
+    days_remaining         69
+    key_algo               id-ecPublicKey
+    key_bits               256
+    key_summary            EC 256-bit (P-256)
+    legacy_accepted        0
+    modern_accepted        1
+    weak_ciphers           NULL cipher(rejected) RC4 cipher(untestable) 3DES cipher(untestable) DES cipher(untestable) EXPORT cipher(untestable) 
+    negotiated_cipher      TLS_AES_256_GCM_SHA384
+    chain_depth            4
+    ocsp_stapled           stapled
+    ocsp_uri               http://o.cf-i.ssl.com
+    crl_uri                http://c.cf-i.ssl.com/ae801ed1c55bb579d79208b0d772acfb8cc3a208.crl
+    verify                  /tmp/tlswatch.FhA0fD/work/example.com_443.chain/cert01.pem: OK
+
+  Findings
+
+    Module 1 - Certificate lifecycle & expiry
+    [PASS] Endpoint reachability      TLS handshake succeeded on example.com:443
+    [PASS] Certificate expiry         valid - 69 day(s) remaining, expires Dec 25 22:56:35 2026 GMT
+    [PASS] Certificate validity window valid from Sep 26 22:49:11 2026 GMT
+    [PASS] Self-signed certificate    not self-signed - issued by C=US, O=SSL Corporation, CN=Cloudflare TLS Issuing ECC CA 3
+    [PASS] Hostname match             CN/SAN MATCH - 'example.com' is covered by the certificate
+
+    Module 2 - Protocol support verification
+    [WARN] SSLv2 support              not testable - SSLv2 was removed from this OpenSSL client
+    [WARN] SSLv3 support              not testable - SSLv3 was removed from this OpenSSL client
+    [WARN] TLSv1.0 support            UNTESTED - client limitation, network failure or inconclusive handshake for TLSv1.0
+    [WARN] TLSv1.1 support            UNTESTED - client limitation, network failure or inconclusive handshake for TLSv1.1
+    [PASS] TLSv1.2 support            supported - TLSv1.2 handshake succeeded
+    [PASS] TLSv1.3 support            supported - TLSv1.3 handshake succeeded
+    [WARN] Protocol policy            INCOMPLETE COVERAGE - no tested legacy protocol accepted; some probes inconclusive
+
+    Module 3 - Weak ciphers & key exchange
+    [PASS] Public key strength        EC 256-bit (P-256) is a strong curve
+    [PASS] Weak cipher: NULL cipher   not accepted - no offered NULL cipher negotiated on TLS 1.0-1.2 (not an exhaustive server cipher inventory)
+    [WARN] Weak cipher: RC4 cipher    UNTESTED - RC4 cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: 3DES cipher   UNTESTED - 3DES cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: DES cipher    UNTESTED - DES cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: EXPORT cipher UNTESTED - EXPORT cipher unavailable locally or handshake inconclusive
+    [WARN] Cipher policy              INCOMPLETE COVERAGE - no tested weak cipher accepted; unavailable families remain unknown
+    [INFO] Negotiated key exchange    Negotiated TLS1.3 group: X25519MLKEM768;
+
+    Module 4 - Certificate chain & CA validation
+    [INFO] Certificate chain          chain presented - 4 certificate(s) sent by the server
+    [PASS] CA trust validation        TRUSTED - the chain validates against the system CA store
+    [PASS] OCSP stapling              OCSP STAPLED - response says good; signature, freshness and certificate binding not independently verified
+    [PASS] CRL distribution point     present - http://c.cf-i.ssl.com/ae801ed1c55bb579d79208b0d772acfb8cc3a208.crl
+    [INFO] OCSP responder URI         http://o.cf-i.ssl.com (presence only; not fetched)
+
+
+================================================================================
+ END OF REPORT
+================================================================================

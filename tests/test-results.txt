@@ -1,0 +1,61 @@
+PASS run good exits 0
+PASS expiry parsed
+PASS hostname matched
+PASS real CA validation
+PASS legacy rejected
+PASS missing SSL2 not claimed safe
+PASS incomplete coverage warning
+PASS no false modern-only claim
+PASS NULL rejected not accepted
+PASS OCSP present
+PASS no ANSI in report
+PASS four module headings once
+PASS CSV dimensions
+PASS timestamped report
+PASS run soon exits 0
+PASS detect soon
+PASS run expired exits 0
+PASS detect expired
+PASS run self exits 0
+PASS detect self
+PASS run legacy exits 0
+PASS detect legacy
+PASS run null exits 0
+PASS detect null
+PASS run weak exits 0
+PASS detect weak
+PASS run missingchain exits 0
+PASS detect missingchain
+PASS run missingocsp exits 0
+PASS detect missingocsp
+PASS run revoked exits 0
+PASS detect revoked
+PASS run offline exits 0
+PASS detect offline
+PASS run timeout exits 0
+PASS detect timeout
+PASS run good exits 0
+PASS mismatch
+PASS run good exits 0
+PASS wildcard valid
+PASS run good exits 0
+PASS wildcard depth rejected
+PASS run good exits 0
+PASS wildcard suffix rejected
+PASS run good exits 0
+PASS no history
+PASS list-only input
+PASS URL dedup and http skip
+PASS reject []
+PASS reject ['--bogus']
+PASS reject ['-d']
+PASS reject ['-d', '../evil']
+PASS reject ['-d', 'host:0']
+PASS reject ['-d', 'host:65536']
+PASS reject ['-d', 'https://user:pass@host']
+PASS reject ['-d', 'host', '-t', '0']
+PASS reject ['-d', 'host', '-w', '-1']
+PASS reject ['-l', '/no/such/file']
+PASS help
+
+PASS 59 / FAIL 0

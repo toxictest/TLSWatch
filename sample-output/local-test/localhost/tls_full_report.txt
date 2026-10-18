@@ -1,0 +1,447 @@
+================================================================================
+ TLSWatch v1.0.0 - SSL/TLS Configuration & Certificate Lifecycle Audit
+================================================================================
+ Generated    : 2026-10-17T11:26:31Z
+ Target       : localhost
+ Endpoints    : 1
+ Alert window : 14 day(s) before expiry
+ Duration     : 00:00:00
+ Verdict      : VULNERABLE
+ Checks       : 9 pass, 11 warning, 2 vulnerable, 3 info
+================================================================================
+
+
+--------------------------------------------------------------------------------
+ ENDPOINT : localhost:19443
+ VERDICT  : VULNERABLE
+--------------------------------------------------------------------------------
+
+  Technical detail
+    host                   localhost
+    port                   19443
+    subject                CN=localhost
+    issuer                 CN=localhost
+    cn                     localhost
+    san                    localhost,127.0.0.1
+    not_before             Oct 17 11:26:23 2026 GMT
+    not_after              Oct 18 11:26:23 2026 GMT
+    days_remaining         0
+    key_algo               rsaEncryption
+    key_bits               2048
+    key_summary            RSA 2048-bit
+    legacy_accepted        0
+    modern_accepted        1
+    weak_ciphers           NULL cipher(rejected) RC4 cipher(untestable) 3DES cipher(untestable) DES cipher(untestable) EXPORT cipher(untestable) 
+    negotiated_cipher      TLS_AES_256_GCM_SHA384
+    chain_depth            1
+    ocsp_stapled           no
+    ocsp_uri               (none)
+    crl_uri                (none)
+    verify                  CN=localhost
+
+  Findings
+
+    Module 1 - Certificate lifecycle & expiry
+    [PASS] Endpoint reachability      TLS handshake succeeded on localhost:19443
+    [WARN] Certificate expiry         EXPIRING SOON - 0 day(s) left (threshold 14), expires Oct 18 11:26:23 2026 GMT
+    [PASS] Certificate validity window valid from Oct 17 11:26:23 2026 GMT
+    [FAIL] Self-signed certificate    SELF-SIGNED - subject and issuer are identical (localhost)
+    [PASS] Hostname match             CN/SAN MATCH - 'localhost' is covered by the certificate
+
+    Module 2 - Protocol support verification
+    [WARN] SSLv2 support              not testable - SSLv2 was removed from this OpenSSL client
+    [WARN] SSLv3 support              not testable - SSLv3 was removed from this OpenSSL client
+    [PASS] TLSv1.0 support            not accepted - TLSv1.0 is disabled
+    [PASS] TLSv1.1 support            not accepted - TLSv1.1 is disabled
+    [PASS] TLSv1.2 support            supported - TLSv1.2 handshake succeeded
+    [PASS] TLSv1.3 support            supported - TLSv1.3 handshake succeeded
+    [WARN] Protocol policy            INCOMPLETE COVERAGE - no tested legacy protocol accepted; some probes inconclusive
+
+    Module 3 - Weak ciphers & key exchange
+    [PASS] Public key strength        RSA 2048-bit meets the 2048-bit minimum
+    [PASS] Weak cipher: NULL cipher   not accepted - no offered NULL cipher negotiated on TLS 1.0-1.2 (not an exhaustive server cipher inventory)
+    [WARN] Weak cipher: RC4 cipher    UNTESTED - RC4 cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: 3DES cipher   UNTESTED - 3DES cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: DES cipher    UNTESTED - DES cipher unavailable locally or handshake inconclusive
+    [WARN] Weak cipher: EXPORT cipher UNTESTED - EXPORT cipher unavailable locally or handshake inconclusive
+    [WARN] Cipher policy              INCOMPLETE COVERAGE - no tested weak cipher accepted; unavailable families remain unknown
+    [INFO] Negotiated key exchange    Negotiated TLS1.3 group: X25519MLKEM768;
+
+    Module 4 - Certificate chain & CA validation
+    [INFO] Certificate chain          1 certificate sent; leaf-only does not itself prove a missing intermediate
+    [FAIL] CA trust validation        SELF-SIGNED CHAIN - the certificate does not chain to a trusted root
+    [WARN] OCSP stapling              MISSING OCSP - the server does not staple a revocation response
+    [WARN] CRL distribution point     MISSING - the certificate carries no CRL distribution point
+    [INFO] OCSP responder URI         absent; CRL may be used instead
+
+  Raw handshake evidence
+
+--- localhost_19443.bundle ---
+Connecting to 127.0.0.1
+depth=0 CN=localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN=localhost
+verify return:1
+CONNECTED(00000003)
+OCSP response: no response sent
+---
+Certificate chain
+ 0 s:CN=localhost
+   i:CN=localhost
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 17 11:26:23 2026 GMT; NotAfter: Oct 18 11:26:23 2026 GMT
+-----BEGIN CERTIFICATE-----
+MIIDJTCCAg2gAwIBAgIUKowc09lhXgL7x4O0Ku5X854Fp4kwDQYJKoZIhvcNAQEL
+BQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTI2MTAxNzExMjYyM1oXDTI2MTAx
+ODExMjYyM1owFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAlCMiBmKHlV7m08bHFweXpuGwSxGTuq9enU7tVjb+JuX6
+WJ9S58vDXwsuUy54aP8wGd/PGFGxolq31wVXySonzyI6R/SYOthDFDQRya2pr6W+
+yXqIUQiUlsi+UxTwZ9PXlmfmNSbaIAhY7sh7dayUSzmba2+PQd5nPVM/eOATF0Sb
+Fs2oMru6Vdd+WWcBCGK04wyBOCpS8Z+dLX0IezKUoDCPpFTwRFUevJNwFu75cujc
+HKarRwDKO7uu6s00CKvIzvDcSis/edGAIODnvLijoDSLeK+wH50tgR2SgiSk4nhj
+wuFend6nA5VzChEME3o7ZPSc/1aaJebUcY6tXA3+JwIDAQABo28wbTAdBgNVHQ4E
+FgQUc3+szAPkm8Yeraz1q6c3bwqQ1BUwHwYDVR0jBBgwFoAUc3+szAPkm8Yeraz1
+q6c3bwqQ1BUwDwYDVR0TAQH/BAUwAwEB/zAaBgNVHREEEzARgglsb2NhbGhvc3SH
+BH8AAAEwDQYJKoZIhvcNAQELBQADggEBAIk7IpXVIB6L1xFY2qA0FiBTe2hBiQuq
+bIO3AJC93tXwXCZCF/TWODxF4k96bvUO+dfLji+fgRmv9R+uPiWfNyhPojVXGvAP
+gcz6Kh5R2qlgvkpPPs29koTmoSJToLLOquN7Ip/CDDBuziEznsal99qSnvHFAeNY
+vJhGFnomj8lL2lrCB4m2EB+PRy/pYx4LMHV+D58pePQyjv0f7FlXjjuinZkHF5r7
+PUMWe6VucdEKEemKqqfJHQoGaAfsCHksNaGIBb8f30LQZrWyV3DlcuIE6qafKm4a
+YAUk2JVZ6PbLMI4YvvcVysSAmJIxAkhYCYU3Z5Qt1hxlJ9OsOQ6rcb4=
+-----END CERTIFICATE-----
+---
+Server certificate
+subject=CN=localhost
+issuer=CN=localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 2453 bytes and written 1640 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 18 (self-signed certificate)
+---
+DONE
+
+--- localhost_19443.NULL.tls1.raw ---
+Connecting to 127.0.0.1
+4017CD99017F0000:error:0A00042E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:../ssl/record/rec_layer_s3.c:918:SSL alert number 70
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 116 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+---
+
+--- localhost_19443.NULL.tls1_1.raw ---
+Connecting to 127.0.0.1
+4017F0021F7F0000:error:0A00042E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:../ssl/record/rec_layer_s3.c:918:SSL alert number 70
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 119 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1.1
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.1
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+---
+
+--- localhost_19443.NULL.tls1_2.raw ---
+Connecting to 127.0.0.1
+4097CCBC907F0000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:../ssl/record/rec_layer_s3.c:918:SSL alert number 40
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 173 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1.2
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+---
+
+--- localhost_19443.tls1.raw ---
+Connecting to 127.0.0.1
+40270E55FA7F0000:error:0A00042E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:../ssl/record/rec_layer_s3.c:918:SSL alert number 70
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 150 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+---
+
+--- localhost_19443.tls1_1.raw ---
+Connecting to 127.0.0.1
+40F7E55FD37F0000:error:0A00042E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:../ssl/record/rec_layer_s3.c:918:SSL alert number 70
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 153 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1.1
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.1
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+---
+
+--- localhost_19443.tls1_2.raw ---
+Connecting to 127.0.0.1
+depth=0 CN=localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN=localhost
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN=localhost
+   i:CN=localhost
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 17 11:26:23 2026 GMT; NotAfter: Oct 18 11:26:23 2026 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDJTCCAg2gAwIBAgIUKowc09lhXgL7x4O0Ku5X854Fp4kwDQYJKoZIhvcNAQEL
+BQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTI2MTAxNzExMjYyM1oXDTI2MTAx
+ODExMjYyM1owFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAlCMiBmKHlV7m08bHFweXpuGwSxGTuq9enU7tVjb+JuX6
+WJ9S58vDXwsuUy54aP8wGd/PGFGxolq31wVXySonzyI6R/SYOthDFDQRya2pr6W+
+yXqIUQiUlsi+UxTwZ9PXlmfmNSbaIAhY7sh7dayUSzmba2+PQd5nPVM/eOATF0Sb
+Fs2oMru6Vdd+WWcBCGK04wyBOCpS8Z+dLX0IezKUoDCPpFTwRFUevJNwFu75cujc
+HKarRwDKO7uu6s00CKvIzvDcSis/edGAIODnvLijoDSLeK+wH50tgR2SgiSk4nhj
+wuFend6nA5VzChEME3o7ZPSc/1aaJebUcY6tXA3+JwIDAQABo28wbTAdBgNVHQ4E
+FgQUc3+szAPkm8Yeraz1q6c3bwqQ1BUwHwYDVR0jBBgwFoAUc3+szAPkm8Yeraz1
+q6c3bwqQ1BUwDwYDVR0TAQH/BAUwAwEB/zAaBgNVHREEEzARgglsb2NhbGhvc3SH
+BH8AAAEwDQYJKoZIhvcNAQELBQADggEBAIk7IpXVIB6L1xFY2qA0FiBTe2hBiQuq
+bIO3AJC93tXwXCZCF/TWODxF4k96bvUO+dfLji+fgRmv9R+uPiWfNyhPojVXGvAP
+gcz6Kh5R2qlgvkpPPs29koTmoSJToLLOquN7Ip/CDDBuziEznsal99qSnvHFAeNY
+vJhGFnomj8lL2lrCB4m2EB+PRy/pYx4LMHV+D58pePQyjv0f7FlXjjuinZkHF5r7
+PUMWe6VucdEKEemKqqfJHQoGaAfsCHksNaGIBb8f30LQZrWyV3DlcuIE6qafKm4a
+YAUk2JVZ6PbLMI4YvvcVysSAmJIxAkhYCYU3Z5Qt1hxlJ9OsOQ6rcb4=
+-----END CERTIFICATE-----
+subject=CN=localhost
+issuer=CN=localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Peer Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1450 bytes and written 302 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Protocol: TLSv1.2
+Server public key is 2048 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: CDC24EAAD324ADCB73EF7A952402126AF1B5A9249527EDE8A6BA7E1B75DC4742
+    Session-ID-ctx: 
+    Master-Key: A3553FA2190051BC08AE94C76EBCAD0EAE8BFC7751B332CF445B34A906EF0E739C7CCD19F4092644DC4AB9541D8F0516
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - b1 5b 6c 70 de 01 75 c6-d0 8f 10 b9 c6 db 42 41   .[lp..u.......BA
+    0010 - 5d cb 6d 7e a7 7f 3a 28-69 98 94 80 36 f6 78 8f   ].m~..:(i...6.x.
+    0020 - 90 bf be 83 e0 49 d8 96-75 47 9a 4d 33 ef c4 2b   .....I..uG.M3..+
+    0030 - ed 19 0b 49 ce 3e 44 a5-c3 e8 9f 33 e7 d1 ad e1   ...I.>D....3....
+    0040 - 4a 2c da 2e 96 b0 c8 fd-fe 58 f6 4e 7b 43 c0 ef   J,.......X.N{C..
+    0050 - 1d 59 09 58 9a cf 10 3e-61 97 75 ce a5 bf 4d 88   .Y.X...>a.u...M.
+    0060 - 42 20 c2 c7 be f8 d7 57-cb 21 db 04 9f 29 fe cc   B .....W.!...)..
+    0070 - 10 ad 71 15 2e da 87 10-c4 56 df ef 13 37 9d c4   ..q......V...7..
+    0080 - e0 7e 98 5e f9 46 1a 02-f9 dc 7a ae 1d db af dc   .~.^.F....z.....
+    0090 - 66 1f b4 27 9e f9 4d 21-b5 cd 49 2d 42 3e 88 78   f..'..M!..I-B>.x
+    00a0 - 83 e6 cb 99 30 dd bc c7-03 30 03 0e b2 ff c6 ff   ....0....0......
+
+    Start Time: 1792236391
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self-signed certificate)
+    Extended master secret: yes
+---
+DONE
+
+--- localhost_19443.tls1_3.raw ---
+Connecting to 127.0.0.1
+depth=0 CN=localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN=localhost
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN=localhost
+   i:CN=localhost
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 17 11:26:23 2026 GMT; NotAfter: Oct 18 11:26:23 2026 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDJTCCAg2gAwIBAgIUKowc09lhXgL7x4O0Ku5X854Fp4kwDQYJKoZIhvcNAQEL
+BQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTI2MTAxNzExMjYyM1oXDTI2MTAx
+ODExMjYyM1owFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAlCMiBmKHlV7m08bHFweXpuGwSxGTuq9enU7tVjb+JuX6
+WJ9S58vDXwsuUy54aP8wGd/PGFGxolq31wVXySonzyI6R/SYOthDFDQRya2pr6W+
+yXqIUQiUlsi+UxTwZ9PXlmfmNSbaIAhY7sh7dayUSzmba2+PQd5nPVM/eOATF0Sb
+Fs2oMru6Vdd+WWcBCGK04wyBOCpS8Z+dLX0IezKUoDCPpFTwRFUevJNwFu75cujc
+HKarRwDKO7uu6s00CKvIzvDcSis/edGAIODnvLijoDSLeK+wH50tgR2SgiSk4nhj
+wuFend6nA5VzChEME3o7ZPSc/1aaJebUcY6tXA3+JwIDAQABo28wbTAdBgNVHQ4E
+FgQUc3+szAPkm8Yeraz1q6c3bwqQ1BUwHwYDVR0jBBgwFoAUc3+szAPkm8Yeraz1
+q6c3bwqQ1BUwDwYDVR0TAQH/BAUwAwEB/zAaBgNVHREEEzARgglsb2NhbGhvc3SH
+BH8AAAEwDQYJKoZIhvcNAQELBQADggEBAIk7IpXVIB6L1xFY2qA0FiBTe2hBiQuq
+bIO3AJC93tXwXCZCF/TWODxF4k96bvUO+dfLji+fgRmv9R+uPiWfNyhPojVXGvAP
+gcz6Kh5R2qlgvkpPPs29koTmoSJToLLOquN7Ip/CDDBuziEznsal99qSnvHFAeNY
+vJhGFnomj8lL2lrCB4m2EB+PRy/pYx4LMHV+D58pePQyjv0f7FlXjjuinZkHF5r7
+PUMWe6VucdEKEemKqqfJHQoGaAfsCHksNaGIBb8f30LQZrWyV3DlcuIE6qafKm4a
+YAUk2JVZ6PbLMI4YvvcVysSAmJIxAkhYCYU3Z5Qt1hxlJ9OsOQ6rcb4=
+-----END CERTIFICATE-----
+subject=CN=localhost
+issuer=CN=localhost
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 2453 bytes and written 1558 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 18 (self-signed certificate)
+---
+DONE
+
+
+================================================================================
+ END OF REPORT
+================================================================================
